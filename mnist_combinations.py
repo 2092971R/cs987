@@ -70,7 +70,7 @@ def cnn(combination, learning_rate, n_epochs, batches):
         model.fit(train_images, train_labels, epochs=n_epochs, verbose=0, batch_size=60000 // batches,
                   callbacks=[cp_callback])
     else:
-        model.fit(train_images, train_labels, epochs=n_epochs, verbose = 0, batch_size = 60000//batches, callbacks=[tbCallBack])
+        model.fit(train_images, train_labels, epochs=n_epochs, verbose = 0, batch_size = 60000//batches)
     train_loss, train_acc = model.evaluate(train_images, train_labels, verbose=0)
     test_loss, test_acc = model.evaluate(test_images, test_labels, verbose = 0)
     print("Training Accuracy:",train_acc)
