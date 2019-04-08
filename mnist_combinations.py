@@ -59,18 +59,13 @@ def cnn(combination, learning_rate, n_epochs, batches):
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
     #model.summary()
-
-    #created ckpt file
+    #create ckpt file
     if (combination == 1):
-        checkpoint_path = "mnist-1-"+ str(learning_rate) + "-" +str(n_epochs) + "-" + str(batches) + ".ckpt"
-        #checkpoint_dir = os.path.dirname(checkpoint_path)
-        cp_callback = ModelCheckpoint(checkpoint_path,save_weights_only=True,
-                                                         verbose=1)
-        #tbCallBack = callbacks.TensorBoard(log_dir=tb, histogram_freq=0, write_graph=True, write_images=True)
-        model.fit(train_images, train_labels, epochs=n_epochs, verbose=0, batch_size=60000 // batches,
-                  callbacks=[cp_callback])
-    else:
-        model.fit(train_images, train_labels, epochs=n_epochs, verbose = 0, batch_size = 60000//batches)
+        model.save("mnist-1-"+ str(learning_rate) + "-" +str(n_epochs) + "-" + str(batches) + ".ckpt")
+    tbCallBack = callbacks.TensorBoard(log_dir='/Graph', histogram_freq=0,
+                            write_graph=True, write_images=True)
+    model.fit(train_images, train_labels, epochs=n_epochs, verbose=0, batch_size=60000 // batches,
+                  callbacks=[tbCallBack])
     train_loss, train_acc = model.evaluate(train_images, train_labels, verbose=0)
     test_loss, test_acc = model.evaluate(test_images, test_labels, verbose = 0)
     print("Training Accuracy:",train_acc)
